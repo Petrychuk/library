@@ -1,8 +1,6 @@
 <?php
 require('config.php');
 
-// ... (подключение к базе данных)
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $member_type = $_POST["member_type"];
     $first_name = $_POST["first_name"];
@@ -39,23 +37,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Проверка на минимальное количество символов в пароле
-    if (strlen($password) < 6) {
+    if (strlen($password) < 4) {
         echo json_encode(array("success" => false, "message" => "Password must be at least 6 characters long."));
         exit;
     }
+    echo "Debug message: Before INSERT"; // Отладочное сообщение
 
-    // Хеширование пароля (лучше использовать более безопасные методы, чем MD5)
-    $password_hash = md5($password);
-
-    $sql = "INSERT INTO users (MemberType, FirstName, LastName, EmailAddress, PasswordMD5Hash) VALUES ('$member_type', '$first_name', '$last_name', '$email', '$password_hash')";
+    $sql = "INSERT INTO users (MemberType, FirstName, LastName, EmailAddress, PasswordPlainText) VALUES ('$member_type', '$first_name', '$last_name', '$email', '$password')";
 
     if ($conn->query($sql) === TRUE) {
         echo json_encode(array("success" => true, "message" => "Hi, $first_name added successfully!"));
     } else {
         echo json_encode(array("success" => false, "message" => "Error: " . $sql . "<br>" . $conn->error));
     }
-
-    // Закрываем соединение с базой данных
+    echo "Debug message: After INSERT";
+  
     $conn->close();
 }
 ?>
