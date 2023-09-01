@@ -26,3 +26,13 @@ $(document).ready(function () {
     $("#popup-message").text(message).fadeIn().delay(3000).fadeOut();
   }
 });
+if (response.success) {
+  showMessage(response.message);
+  console.log("Registration successful. Redirecting..."); // Отладочное сообщение
+  setTimeout(function () {
+    window.location.href = "display_books.php";
+  }, 3000);
+} else {
+  showMessage(response.message);
+}
+

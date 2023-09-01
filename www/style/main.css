@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: auto;
+}
+
+body {
+  font-family: Verdana, Arial, sans-serif;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+}
+
+.footer {
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+}
+/* Center the logo */
+.logo-container {
+  text-align: center;
+  margin-top: 10px;
+  /* Adjust as needed */
+}
+.home_link {
+  background-color: #d6cef2;
+  height: 70px;
+  background: linear-gradient(to right, #d6cef2, #a0a4e1);
+}
+
+/* Style the navigation links */
+.home_link ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  align-items: center; /* Vertical centering */
+  height: 100%; /* Fill the entire height of the nav */
+  padding: 0 20px; /* Add spacing between links */
+}
+
+/* Adjust spacing between li elements */
+.home_link ul li {
+  margin: 0 30px;
+  text-decoration: none;
+}
+.home_link a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+.home_link a:hover {
+  color: rgb(128, 20, 230);
+}
+/* Style the main content */
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.col {
+  flex-basis: 45%;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  text-align: center;
+  padding: 5px auto;
+  color: rgb(177, 141, 211);
+  margin: 10px auto;
+}
+p {
+  padding: 20px;
+}
+.form {
+  max-width: 600px;
+  margin: 20px auto; /* Центрирование формы по горизонтали */
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+.form-link a {
+    text-decoration: none;
+    font-weight: 600;
+    color: rgb(177, 141, 211);
+}
+.form-link a:hover {
+    text-decoration: underline;
+    color:  rgb(128, 20, 230);
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #a0a4e1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn:hover {
+    color: #ffff;
+    background-color: rgb(128, 20, 230);
+}
+
+.form-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+.select-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #a0a4e1; /* Измените цвет на желаемый */
+}
+
+.popup-message {
+  color: red;
+}
+
+/* Style the footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #a0a4e1, #d6cef2);
+}
+footer p {
+  color: black;
+  font-weight: 600;
+}

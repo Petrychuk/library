@@ -1,13 +1,16 @@
 <?php
 require('config.php');
+session_start();
 
-if (isset($_GET['type'])) {
-    $type = mysqli_real_escape_string($conn, $_GET['type']);
-    if ($type == 'delete') {
-        $id = mysqli_real_escape_string($conn, $_GET['id']);
-        header("Location: deleteCabin.php?id=$id");
-        exit();
-    }
+
+// Проверка логина и пароля, установка переменной $userIsAdmin в зависимости от роли
+$userIsAdmin = true;
+if ($userIsAdmin) {
+    $_SESSION['member_type'] = 'Admin';
+    // Другие установки сессии для админа
+} else {
+    $_SESSION['member_type'] = 'Member';
+    // Другие установки сессии для пользователя
 }
 ?>
 <!DOCTYPE html>
@@ -20,16 +23,16 @@ if (isset($_GET['type'])) {
     <link href="https://fonts.googleapis.com/css?family=Quando&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="../style/main.css" rel="stylesheet" type="text/css">
+    <link href="style/main.css" rel="stylesheet" type="text/css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* CSS styles here */
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
             padding: 20px;
             margin: auto; 
-            width: 1380px;   
+            width: 1480px;   
         }
         
         th a {
@@ -41,24 +44,37 @@ if (isset($_GET['type'])) {
         }
 
         tr:nth-child(even) {
-            background-color: #D6EEEE;
+            background-color: #D6CEF2;
         }
         .links a {
             color: black;
             padding-top: 15px;
         }
     
+        
     </style>
 </head>
 
 <body>
 <header>
     <div class="logo">
-       <img src="../images/Logo_1.jpg" alt="LitReads Library">
+       <img src="../images/Logo_short.jpg" alt="LitReads Library">
+    </div>
+    <div><h2>Books of LitReads Library</h2></div>
+    <div>
+        <form class="search_block">
+                    <input type="text" name="text" class="search" placeholder="Search book!" />
+                    <input type="submit" name="submit" class="submit" value="Search" />
+                   
+        </form>
+    </div>
+    <div>
+    <p>Hi, <?php echo ($_SESSION['member_type'] === 'Member') ? $_SESSION['first_name'] : 'admin'; ?></p>
+    <a href="../index.html"><i class="fi fi-br-exit"></i></a>
     </div>
 </header>
 <div class="container">
-<h2>Books of LitReads Library</h2>
+
 <?php
     $sql = "SELECT * FROM `book`";
     if($ans = $conn->query($sql)){
@@ -69,17 +85,19 @@ if (isset($_GET['type'])) {
 
     <table>
         <tr>
-            <th colspan="7">
-            <a href="../php/insertBook.php" class="button">Add a new book</a>
+            <th colspan="10">
+            <a href="../php/newBookform.php" class="button">Add a new book</a>
             </th>
         </tr>
         <tr>
-            <td>BookID</td>
+            <td>Book ID</td>
             <td>Book Title</td>
+            <td>Book Discription</td>
+            <td>Category</td>
             <td>Author</td>
             <td>Publisher</td>
             <td>Photo</td>
-            <td></td>
+            <td>Book borrow by</td>
             <td>Action</td>
         </tr>
 <?php

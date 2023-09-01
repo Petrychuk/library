@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2023 at 02:42 PM
+-- Generation Time: Sep 01, 2023 at 06:53 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -34,7 +34,8 @@ CREATE TABLE `book` (
   `Publisher` varchar(30) DEFAULT NULL,
   `Language` enum('English','French','German','Mandarin','Japanese','Russian','Other') DEFAULT 'English',
   `Category` enum('Fiction','Nonfiction','Reference') DEFAULT 'Fiction',
-  `Photo` blob DEFAULT NULL
+  `Photo` blob DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

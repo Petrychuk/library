@@ -15,15 +15,18 @@ if ($conn->connect_error) {
 }
 
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header("Location: adminMenu.php");
+    header("Location: display_book.php");
     exit;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
+    
+    $password_hash = md5($password);
 
-    $sql = "SELECT staffID, userName, firstName, lastName FROM admin WHERE userName = '$username' AND password = '$password'";
+    $sql = "SELECT MemberType, FirstName, LastName, EmailAddress FROM users WHERE EmailAddress = '$email' AND PasswordMD5Hash = '$password_hash'";
+    
     $result = $conn->query($sql);
 
     if ($result && $result->num_rows == 1) {
@@ -33,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['admin_username'] = $row['userName'];
         $_SESSION['admin_name'] = $row['firstName'] . ' ' . $row['lastName'];
 
-        header("Location: adminMenu.php");
+        header("Location: display_books.php");
         exit;
     } else
     { 

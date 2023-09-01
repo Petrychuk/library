@@ -1,5 +1,13 @@
 <?php
-require('config.php');
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "library";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $member_type = $_POST["member_type"];
@@ -37,21 +45,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Проверка на минимальное количество символов в пароле
-    if (strlen($password) < 4) {
+    if (strlen($password) < 6) {
         echo json_encode(array("success" => false, "message" => "Password must be at least 6 characters long."));
         exit;
     }
-    echo "Debug message: Before INSERT"; // Отладочное сообщение
 
-    $sql = "INSERT INTO users (MemberType, FirstName, LastName, EmailAddress, PasswordPlainText) VALUES ('$member_type', '$first_name', '$last_name', '$email', '$password')";
+    // Хеширование пароля с помощью bcrypt
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO users (MemberType, FirstName, LastName, EmailAddress, PasswordMD5Hash) VALUES ('$member_type', '$first_name', '$last_name', '$email', '$password_hash')";
 
     if ($conn->query($sql) === TRUE) {
         echo json_encode(array("success" => true, "message" => "Hi, $first_name added successfully!"));
     } else {
         echo json_encode(array("success" => false, "message" => "Error: " . $sql . "<br>" . $conn->error));
     }
-    echo "Debug message: After INSERT";
-  
+
     $conn->close();
 }
 ?>
